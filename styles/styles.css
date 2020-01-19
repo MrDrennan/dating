@@ -17,14 +17,12 @@
 }
 
 #content {
-    float: left;
     width: 50%;
     padding: 35px 40px;
 }
 
 /* To crop image around the edges and fill in the space */
 .crop-container {
-    float: right;
     width: 50%;
     height: 100%;
     padding-top: 20px;
