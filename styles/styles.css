@@ -45,12 +45,16 @@ img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: calc(50% + 16px) 50%;
+    /*object-position: calc(50% + 16px) 50%;*/
 }
 
 #quotes {
     margin-top: 35px;
     margin-bottom: 35px;
+}
+
+#quotes > p {
+    margin-left: 25px;
 }
 
 #title {
