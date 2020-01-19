@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 
+/* Center non-block elements as block elements */
 .center {
     display: block;
     margin-left: auto;
@@ -21,6 +22,7 @@
     padding: 35px 40px;
 }
 
+/* To crop image around the edges and fill in the space */
 .crop-container {
     float: right;
     width: 50%;
@@ -28,6 +30,7 @@
     padding-top: 20px;
     padding-right: 20px;
     padding-bottom: 20px;
+    /* Make absolute so this is ignored when calculating parents height */
     position: absolute;
     top: 0;
     right: 0;
@@ -44,8 +47,8 @@ h2 {
 img {
     width: 100%;
     height: 100%;
+    /* To crop image instead of changing aspect ratio */
     object-fit: cover;
-    /*object-position: calc(50% + 16px) 50%;*/
 }
 
 #quotes {

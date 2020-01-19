@@ -1,4 +1,9 @@
 <?php
+/**
+ * Controller for the home page
+ * @author Chad Drennan
+ * Date Created: 1/17/2020
+ */
 
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
