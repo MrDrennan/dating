@@ -28,4 +28,9 @@ $f3->route('POST /create-profile/profile', function() {
     echo $view->render('views/frm-profile.html');
 });
 
+$f3->route('POST /create-profile/interests', function() {
+    $view = new Template();
+    echo $view->render('views/frm-interests.html');
+});
+
 $f3->run();
