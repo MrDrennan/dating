@@ -23,4 +23,9 @@ $f3->route('GET /create-profile/personal-info', function() {
    echo $view->render('views/frm-personal-info.html');
 });
 
+$f3->route('POST /create-profile/profile', function() {
+    $view = new Template();
+    echo $view->render('views/frm-profile.html');
+});
+
 $f3->run();
