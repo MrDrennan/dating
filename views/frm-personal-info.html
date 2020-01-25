@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/dating-icon.png">
+    <link rel="icon" type="image/png" href="/328/dating/images/dating-icon.png">
 
     <title>Create Profile | My Dating Website</title>
 </head>
@@ -18,38 +18,69 @@
     <a class="navbar-brand" href="/328/dating">My Dating Website</a>
 </nav>
 
-<main class="container border rounded">
+<main class="container border rounded clearfix">
 
     <h1>Personal Information</h1>
     <hr>
-
-    <div>
-        <strong>Note:</strong> All information is protected by our <a href="#">privace policy</a>.
-        Profile information can only be viewed by others with your permission.
-    </div>
-
     <form action="profile" method="post">
+        <div class="row">
 
-        <label for="f-name">First Name</label>
-        <input id="f-name" name="f-name" type="text">
+            <div class="col-md-8">
 
-        <label for="l-name">Last Name</label>
-        <input id="l-name" name="l-name" type="text">
+                <!-- First Name -->
+                <div class="form-group">
+                    <label for="f-name">First Name</label>
+                    <input id="f-name" name="f-name" type="text" class="form-control">
+                </div>
 
-        <label for="age">Age</label>
-        <input id="age" name="age" type="text">
+                <!-- Last Name -->
+                <div class="form-group">
+                    <label for="l-name">Last Name</label>
+                    <input id="l-name" name="l-name" type="text" class="form-control">
+                </div>
 
-        <p>Gender</p>
-        <input id="male" type="radio" name="gender" value="male">
-        <label for="male">Male</label>
+                <!-- Age -->
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input id="age" name="age" type="text" class="form-control">
+                </div>
 
-        <input id="female" type="radio" name="gender" value="female">
-        <label for="female">Female</label>
+                <!-- Gender -->
+                <div class="form-group">
+                    <p class="mb-2">Gender</p>
 
-        <label for="phone">Phone</label>
-        <input id="phone" name="phone" type="text">
+                    <!-- Male -->
+                    <div class="form-check form-check-inline">
+                        <input id="male" type="radio" name="gender" value="male" class="form-check-input">
+                        <label for="male" class="form-check-label">Male</label>
+                    </div>
 
-        <button class="btn btn-primary" type="submit">Next ></button>
+                    <!-- Female -->
+                    <div class="form-check form-check-inline">
+                        <input id="female" type="radio" name="gender" value="female" class="form-check-input">
+                        <label for="female" class="form-check-label">Female</label>
+                    </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input id="phone" name="phone" type="text" class="form-control">
+                </div>
+            </div><!-- col-sm-8 -->
+
+            <!-- Notice -->
+            <div class="col-md-4">
+                <div class="card bg-light text-center">
+                    <div class="card-body">
+                        <strong>Note:</strong> All information is protected by our <a href="#">privace policy</a>.
+                        Profile information can only be viewed by others with your permission.
+                    </div>
+                </div>
+            </div> <!-- col-sm-4 -->
+        </div> <!-- row -->
+
+        <button class="btn btn-primary float-right" type="submit">Next ></button>
     </form>
 </main>
 
