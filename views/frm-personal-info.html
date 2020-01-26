@@ -11,6 +11,9 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/328/dating/images/dating-icon.png">
 
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="/328/dating/styles/form.css">
+
     <title>Create Profile | My Dating Website</title>
 </head>
 <body>
@@ -18,16 +21,16 @@
     <a class="navbar-brand" href="/328/dating">My Dating Website</a>
 </nav>
 
-<main class="container border rounded clearfix">
+<main class="container border rounded clearfix ">
 
     <h1>Personal Information</h1>
     <hr>
+
     <form action="profile" method="post">
         <div class="row">
-
             <div class="col-md-8">
 
-                <!-- First Name -->
+                <!-- First Name TODO put icon in input text box-->
                 <div class="form-group">
                     <label for="f-name">First Name</label>
                     <input id="f-name" name="f-name" type="text" class="form-control">
@@ -47,7 +50,7 @@
 
                 <!-- Gender -->
                 <div class="form-group">
-                    <p class="mb-2">Gender</p>
+                    <p class="mb-2 check-label">Gender</p>
 
                     <!-- Male -->
                     <div class="form-check form-check-inline">
