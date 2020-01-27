@@ -48,7 +48,15 @@ $f3->route('POST /create-profile/interests', function() {
 
 //TODO try to make route work without /create-profile part
 $f3->route('POST /create-profile/profile-summary', function() {
-    $interests = implode(' ', $_POST['indoor-interests']) . ' ' . implode(' ', $_POST['outdoor-interests']);
+
+    $interests = '';
+    if (isset($_POST['indoor-interests'])) {
+        $interests = implode(' ', $_POST['indoor-interests']) . ' ';
+    }
+    if (isset($_POST['outdoor-interests'])) {
+        $interests .= implode(' ', $_POST['outdoor-interests']);
+    }
+
     $_SESSION['interests'] = str_replace('-', ' ', $interests);
 
     $view = new Template();

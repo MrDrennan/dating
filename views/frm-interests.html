@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- Site CSS -->
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="/328/dating/styles/form.css">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/328/dating/images/dating-icon.png">
@@ -27,51 +27,93 @@
 
     <form action="profile-summary" method="post">
 
-        <p>In-door Interests</p>
+        <p class="mb-2 check-label">In-door Interests</p>
 
-        <input id="tv" name="indoor-interests[]" value="tv" type="checkbox">
-        <label for="tv">tv</label>
+        <div class="row ml-3 mb-3">
 
-        <input id="movies" name="indoor-interests[]" value="movies" type="checkbox">
-        <label for="movies">movies</label>
+            <div class="col-6 col-md-3 form-check">
+                <input id="tv" name="indoor-interests[]" value="tv" type="checkbox" class="form-check-input">
+                <label for="tv" class="form-check-label">tv</label>
+            </div>
 
-        <input id="cooking" name="indoor-interests[]" value="cooking" type="checkbox">
-        <label for="cooking">cooking</label>
+            <div class="col-6 col-md-3 form-check">
+                <input id="movies" name="indoor-interests[]" value="movies" type="checkbox" class="form-check-input">
+                <label for="movies" class="form-check-label">movies</label>
+            </div>
 
-        <input id="board-games" name="indoor-interests[]" value="board-games" type="checkbox">
-        <label for="board-games">board games</label>
+            <div class="col-6 col-md-3 form-check">
+                <input id="cooking" name="indoor-interests[]" value="cooking" type="checkbox" class="form-check-input">
+                <label for="cooking" class="form-check-label">cooking</label>
+            </div>
 
-        <input id="puzzles" name="indoor-interests[]" value="puzzles" type="checkbox">
-        <label for="puzzles">puzzles</label>
+            <div class="col-6 col-md-3 form-check">
+                <input id="board-games" name="indoor-interests[]" value="board-games" type="checkbox"
+                       class="form-check-input">
+                <label for="board-games" class="form-check-label">board games</label>
+            </div>
 
-        <input id="reading" name="indoor-interests[]" value="reading" type="checkbox">
-        <label for="reading">reading</label>
+            <div class="col-6 col-md-3 form-check">
+                <input id="puzzles" name="indoor-interests[]" value="puzzles" type="checkbox" class="form-check-input">
+                <label for="puzzles" class="form-check-label">puzzles</label>
+            </div>
 
-        <input id="playing-cards" name="indoor-interests[]" value="playing-cards" type="checkbox">
-        <label for="playing-cards">playing cards</label>
+            <div class="col-6 col-md-3 form-check">
+                <input id="reading" name="indoor-interests[]" value="reading" type="checkbox" class="form-check-input">
+                <label for="reading" class="form-check-label">reading</label>
+            </div>
 
-        <input id="video-games" name="indoor-interests[]" value="video-games" type="checkbox">
-        <label for="video-games">video games</label>
+            <div class="col-6 col-md-3 form-check">
+                <input id="playing-cards" name="indoor-interests[]" value="playing-cards" type="checkbox"
+                       class="form-check-input">
+                <label for="playing-cards" class="form-check-label">playing cards</label>
+            </div>
 
-        <p>Out-door Interests</p>
+            <div class="col-6 col-md-3 form-check">
+                <input id="video-games" name="indoor-interests[]" value="video-games" type="checkbox"
+                       class="form-check-input">
+                <label for="video-games" class="form-check-label">video games</label>
+            </div>
 
-        <input id="hiking" name="outdoor-interests[]" value="hiking" type="checkbox">
-        <label for="hiking">hiking</label>
+        </div><!-- row -->
 
-        <input id="biking" name="outdoor-interests[]" value="biking" type="checkbox">
-        <label for="biking">biking</label>
+        <p class="mb-2 check-label">Out-door Interests</p>
 
-        <input id="swimming" name="outdoor-interests[]" value="swimming" type="checkbox">
-        <label for="swimming">swimming</label>
+        <div class="row ml-3">
 
-        <input id="collecting" name="outdoor-interests[]" value="collecting" type="checkbox">
-        <label for="collecting">collecting</label>
+            <div class="col-6 col-md-3 form-check">
+                <input id="hiking" name="outdoor-interests[]" value="hiking" type="checkbox" class="form-check-input">
+                <label for="hiking" class="form-check-label">hiking</label>
+            </div>
 
-        <input id="walking" name="outdoor-interests[]" value="walking" type="checkbox">
-        <label for="walking">walking</label>
+            <div class="col-6 col-md-3 form-check">
+                <input id="biking" name="outdoor-interests[]" value="biking" type="checkbox" class="form-check-input">
+                <label for="biking" class="form-check-label">biking</label>
+            </div>
 
-        <input id="climbing" name="outdoor-interests[]" value="climbing" type="checkbox">
-        <label for="climbing">climbing</label>
+            <div class="col-6 col-md-3 form-check">
+                <input id="swimming" name="outdoor-interests[]" value="swimming" type="checkbox"
+                       class="form-check-input">
+                <label for="swimming" class="form-check-label">swimming</label>
+            </div>
+
+            <div class="col-6 col-md-3 form-check">
+                <input id="collecting" name="outdoor-interests[]" value="collecting" type="checkbox"
+                       class="form-check-input">
+                <label for="collecting" class="form-check-label">collecting</label>
+            </div>
+
+            <div class="col-6 col-md-3 form-check">
+                <input id="walking" name="outdoor-interests[]" value="walking" type="checkbox" class="form-check-input">
+                <label for="walking" class="form-check-label">walking</label>
+            </div>
+
+            <div class="col-6 col-md-3 form-check">
+                <input id="climbing" name="outdoor-interests[]" value="climbing" type="checkbox"
+                       class="form-check-input">
+                <label for="climbing" class="form-check-label">climbing</label>
+            </div>
+
+        </div><!-- row -->
 
         <button class="btn btn-primary float-right" type="submit">Next ></button>
     </form>
