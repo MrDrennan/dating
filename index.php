@@ -29,7 +29,7 @@ $f3->route('POST /create-profile/profile', function($f3) {
     $_SESSION['fName'] = trim($_POST['f-name']);
     $_SESSION['lName'] = trim($_POST['l-name']);
     $_SESSION['age'] = trim($_POST['age']);
-    $_SESSION['gender'] = $_POST['gender'];
+    $_SESSION['gender'] = ucfirst($_POST['gender']);
     $_SESSION['phone'] = trim($_POST['phone']);
 
     $states = [
@@ -150,16 +150,19 @@ $f3->route('POST /create-profile/interests', function($f3) {
     $indoorInterests = ['tv', 'movies', 'cooking', 'board-games', 'puzzles', 'reading', 'playing-cards', 'video-games'];
     $outdoorInterests = ['hiking', 'biking', 'swimming', 'collecting', 'walking', 'climbing'];
 
+    $f3->set('indoorInterests', $indoorInterests);
+    $f3->set('outdoorInterests', $outdoorInterests);
+
     $_SESSION['email'] = trim($_POST['email']);
     $_SESSION['state'] = $states[$_POST['state']];
-    $_SESSION['seekingGender'] = $_POST['seeking-gender'];
+    $_SESSION['seekingGender'] = ucfirst($_POST['seeking-gender']);
     $_SESSION['bio'] = trim($_POST['bio']);
 
     $view = new Template();
     echo $view->render('views/frm-interests.html');
 });
 
-//TODO try to make route work without /create-profile part
+
 $f3->route('POST /create-profile/profile-summary', function() {
 
     $interests = '';
