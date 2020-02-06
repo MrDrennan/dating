@@ -105,7 +105,7 @@ $f3->route('GET|POST /create-profile/personal-info', function($f3) {
             $_SESSION['gender'] = $gender;
             $_SESSION['phone'] = $phone;
 
-            $f3->reroute('/profile');
+            $f3->reroute('/create-profile/profile');
         }
     }
 
@@ -113,7 +113,7 @@ $f3->route('GET|POST /create-profile/personal-info', function($f3) {
    echo $view->render('views/frm-personal-info.html');
 });
 
-$f3->route('POST /create-profile/profile', function($f3) {
+$f3->route('GET|POST /create-profile/profile', function($f3) {
     $_SESSION['fName'] = trim($_POST['f-name']);
     $_SESSION['lName'] = trim($_POST['l-name']);
     $_SESSION['age'] = trim($_POST['age']);
