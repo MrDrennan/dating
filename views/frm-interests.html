@@ -42,7 +42,10 @@
                 <div class="col-6 col-md-3 form-check">
                     <input id="{{ @currInInterest }}" name="indoor-interests[]" value="{{ @currInInterest }}"
                            type="checkbox" class="form-check-input"
-                        <check if="{{ in_array(@currInInterest, @selectedIndoorInterests) }}">checked</check>
+                        <check if="{{ isset(@selectedIndoorInterests)
+                                    && in_array(@currInInterest, @selectedIndoorInterests) }}">
+                            checked
+                        </check>
                     >
                     <label for="{{ @currInInterest }}" class="form-check-label">
                         {{ str_replace('-', ' ', @currInInterest) }}
@@ -63,7 +66,10 @@
                 <div class="col-6 col-md-3 form-check">
                     <input id="{{ @currOutInterest }}" name="outdoor-interests[]" value="{{ @currOutInterest }}"
                            type="checkbox" class="form-check-input"
-                        <check if="{{ in_array(@currOutInterest, @selectedOutdoorInterests) }}">checked</check>
+                        <check if="{{ isset(@selectedOutdoorInterests)
+                                    && in_array(@currOutInterest, @selectedOutdoorInterests) }}">
+                            checked
+                        </check>
                     >
                     <label for="{{ @currOutInterest }}" class="form-check-label">
                         {{ str_replace('-', ' ', @currOutInterest) }}

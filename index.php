@@ -116,7 +116,6 @@ $f3->route('GET|POST /create-profile/profile', function($f3) {
 
         // Collect data
         $email = trim($_POST['email']);
-        //$state = $f3->get('states')[$_POST['state']]; TODO remove this line
         $state = $_POST['state'];
         $seekingGender = $_POST['seeking-gender'];
         $bio = trim($_POST['bio']);
@@ -172,18 +171,24 @@ $f3->route('GET|POST /create-profile/interests', function($f3) {
 });
 
 
-$f3->route('GET /create-profile/profile-summary', function() {
+$f3->route('GET /create-profile/profile-summary', function($f3) {
 
     $interests = '';
-    if (isset($_POST['indoor-interests'])) {
-        $interests = implode(' ', $_POST['indoor-interests']) . ' ';
+    if (isset($_SESSION['indoorInterests'])) {
+        $interests = implode(' ', $_SESSION['indoorInterests']) . ' ';
     }
-    if (isset($_POST['outdoor-interests'])) {
-        $interests .= implode(' ', $_POST['outdoor-interests']);
+    if (isset($_SESSION['outdoorInterests'])) {
+        $interests .= implode(' ', $_SESSION['outdoorInterests']);
     }
 
-    $_SESSION['interests'] = str_replace('-', ' ', $interests);
+    $state = $f3->get('states')[$_SESSION['state']];
 
+    $f3->set('gender', ucfirst($_SESSION['gender']));
+    $f3->set('state', $state);
+    $f3->set('seekingGender', ucfirst($_SESSION['seekingGender']));
+    $f3->set('interests',  str_replace('-', ' ', $interests));
+
+    echo $interests;
     echo Template::instance()->render('views/summary.html');
 });
 
