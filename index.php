@@ -73,8 +73,7 @@ $f3->set('states', $states);
 $f3->set('errors', []);
 
 $f3->route('GET /', function() {
-   $view = new Template();
-   echo $view->render('views/home.html');
+   echo Template::instance()->render('views/home.html');
 });
 
 
@@ -86,7 +85,7 @@ $f3->route('GET|POST /create-profile/personal-info', function($f3) {
         $fName = trim($_POST['f-name']);
         $lName = trim($_POST['l-name']);
         $age = trim($_POST['age']);
-        $gender = trim($_POST['gender']);
+        $gender = $_POST['gender'];
         $phone = trim($_POST['phone']);
 
         // Add to hive
@@ -108,25 +107,41 @@ $f3->route('GET|POST /create-profile/personal-info', function($f3) {
             $f3->reroute('/create-profile/profile');
         }
     }
-
-   $view = new Template();
-   echo $view->render('views/frm-personal-info.html');
+   echo Template::instance()->render('views/frm-personal-info.html');
 });
 
 $f3->route('GET|POST /create-profile/profile', function($f3) {
-    $_SESSION['fName'] = trim($_POST['f-name']);
-    $_SESSION['lName'] = trim($_POST['l-name']);
-    $_SESSION['age'] = trim($_POST['age']);
-    $_SESSION['gender'] = ucfirst($_POST['gender']);
-    $_SESSION['phone'] = trim($_POST['phone']);
 
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+        // Collect data
+        $email = trim($_POST['email']);
+        //$state = $f3->get('states')[$_POST['state']]; TODO remove this line
+        $state = $_POST['state'];
+        $seekingGender = $_POST['seeking-gender'];
+        $bio = trim($_POST['bio']);
 
-    $view = new Template();
-    echo $view->render('views/frm-profile.html');
+        // Add to hive
+        $f3->set('email', $email);
+        $f3->set('state', $state);
+        $f3->set('seekingGender', $seekingGender);
+        $f3->set('bio', $bio);
+
+        if (validProfileForm($f3)) {
+
+            // Add to session
+            $_SESSION['email'] = $email;
+            $_SESSION['state'] = $state;
+            $_SESSION['seekingGender'] = $seekingGender;
+            $_SESSION['bio'] = $bio;
+
+            $f3->reroute('/create-profile/interests');
+        }
+    }
+    echo Template::instance()->render('views/frm-profile.html');
 });
 
-$f3->route('POST /create-profile/interests', function($f3) {
+$f3->route('GET|POST /create-profile/interests', function($f3) {
 
     $indoorInterests = ['tv', 'movies', 'cooking', 'board-games', 'puzzles', 'reading', 'playing-cards', 'video-games'];
     $outdoorInterests = ['hiking', 'biking', 'swimming', 'collecting', 'walking', 'climbing'];
@@ -134,13 +149,10 @@ $f3->route('POST /create-profile/interests', function($f3) {
     $f3->set('indoorInterests', $indoorInterests);
     $f3->set('outdoorInterests', $outdoorInterests);
 
-    $_SESSION['email'] = trim($_POST['email']);
-    $_SESSION['state'] = $f3->get('states')[$_POST['state']];
-    $_SESSION['seekingGender'] = ucfirst($_POST['seeking-gender']);
-    $_SESSION['bio'] = trim($_POST['bio']);
 
-    $view = new Template();
-    echo $view->render('views/frm-interests.html');
+
+
+    echo Template::instance()->render('views/frm-interests.html');
 });
 
 
@@ -156,8 +168,7 @@ $f3->route('POST /create-profile/profile-summary', function() {
 
     $_SESSION['interests'] = str_replace('-', ' ', $interests);
 
-    $view = new Template();
-    echo $view->render('views/summary.html');
+    echo Template::instance()->render('views/summary.html');
 });
 
 $f3->run();

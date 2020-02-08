@@ -32,16 +32,22 @@ function validPersonalInfoForm($f3) {
         $isValid = false;
         $f3->push('errors', 'phoneInvalid');
     }
-
     return $isValid;
 }
 
 function validProfileForm($f3) {
     $isValid = true;
 
+    if (empty($f3->get('email'))) {
+        $isValid = false;
+        $f3->push('errors', 'emailRequired');
+    }
+
     if (!validEmail($f3->get('email'))) {
         $isValid = false;
+        $f3->push('errors', 'emailInvalid');
     }
+    return $isValid;
 }
 
 function validName($name) {

@@ -32,14 +32,22 @@
     <h1>Profile</h1>
     <hr>
 
-    <form action="interests" method="post">
+    <form action="#" method="post">
         <div class="row">
             <div class="col-md-6">
 
                 <!-- Email -->
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" name="email" type="text" class="form-control">
+                    <input id="email" name="email" type="text" class="form-control" value="{{ @email }}">
+
+                    <check if="{{ in_array('emailRequired', @errors) }}">
+                        <span class="error text-danger">Required</span>
+                    </check>
+
+                    <check if="{{ in_array('emailInvalid', @errors) }}">
+                        <span class="error text-danger">Invalid email format</span>
+                    </check>
                 </div>
 
                 <!-- State -->
@@ -47,8 +55,13 @@
                     <label for="state">State</label>
                     <select id="state" name="state" class="form-control">
                         <option value="">Select</option>
+
                         <repeat group="{{ @states }}" key="{{ @abbr }}" value="{{ @name }}">
-                            <option value="{{ @abbr }}">{{ @name }}</option>
+
+                            <option value="{{ @abbr }}"
+                                <check if="{{ @state == @abbr }}">selected</check>
+                            >{{ @name }}</option>
+
                         </repeat>
                     </select>
                 </div>
@@ -59,13 +72,17 @@
 
                     <!-- Male -->
                     <div class="form-check form-check-inline">
-                        <input type="radio" name="seeking-gender" id="male" value="male" class="form-check-input">
+                        <input type="radio" name="seeking-gender" id="male" value="male" class="form-check-input"
+                            <check if="{{ @seekingGender == 'male' }}">checked</check>
+                        >
                         <label for="male">Male</label>
                     </div>
 
                     <!-- Female -->
                     <div class="form-check form-check-inline">
-                        <input type="radio" name="seeking-gender" id="female"  value="female" class="form-check-input">
+                        <input type="radio" name="seeking-gender" id="female"  value="female" class="form-check-input"
+                            <check if="{{ @seekingGender == 'female' }}">checked</check>
+                        >
                         <label for="female" class="form-check-label">Female</label>
                     </div>
                 </div>
@@ -74,9 +91,10 @@
 
             <div class="col-md-6">
 
+                <!-- Biography -->
                 <div class="form-group">
                     <label for="bio">Biography</label>
-                    <textarea name="bio" id="bio" cols="30" rows="6" class="form-control"></textarea>
+                    <textarea name="bio" id="bio" cols="30" rows="6" class="form-control">{{ @bio }}</textarea>
                 </div>
 
             </div> <!-- col-md-6 -->
