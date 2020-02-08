@@ -50,6 +50,22 @@ function validProfileForm($f3) {
     return $isValid;
 }
 
+function validInterestsForm($f3) {
+    $isValid = true;
+
+    if (!validIndoor($f3->get('selectedIndoorInterests'))) {
+        $isValid = false;
+        // Not showing error for spoofed form
+    }
+
+    if (!validOutdoor($f3->get('selectedOutdoorInterests'))) {
+        $isValid = false;
+        // Not showing error for spoofed form
+    }
+
+    return $isValid;
+}
+
 function validName($name) {
     return empty($name) || ctype_alpha($name);
 }
@@ -67,12 +83,28 @@ function validEmail($email) {
     return empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
-function validOutdoor($interest) {
+function validOutdoor($selectedInterests) {
+    $outdoorInterests = ['hiking', 'biking', 'swimming', 'collecting', 'walking', 'climbing'];
 
+    foreach ($selectedInterests as $currInterest) {
+
+        if (!in_array($currInterest, $outdoorInterests)) {
+            return false;
+        }
+    }
+    return true;
 }
 
-function validIndoor($interest) {
+function validIndoor($selectedInterests) {
+    $indoorInterests = ['tv', 'movies', 'cooking', 'board-games', 'puzzles', 'reading', 'playing-cards', 'video-games'];
 
+    foreach ($selectedInterests as $currInterest) {
+
+        if (!in_array($currInterest, $indoorInterests)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 

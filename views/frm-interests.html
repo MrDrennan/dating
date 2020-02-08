@@ -30,7 +30,7 @@
     <h1>Interests</h1>
     <hr>
 
-    <form action="profile-summary" method="post">
+    <form action="#" method="post">
 
         <p class="mb-2 check-label">In-door Interests</p>
 
@@ -41,7 +41,9 @@
 
                 <div class="col-6 col-md-3 form-check">
                     <input id="{{ @currInInterest }}" name="indoor-interests[]" value="{{ @currInInterest }}"
-                           type="checkbox" class="form-check-input">
+                           type="checkbox" class="form-check-input"
+                        <check if="{{ in_array(@currInInterest, @selectedIndoorInterests) }}">checked</check>
+                    >
                     <label for="{{ @currInInterest }}" class="form-check-label">
                         {{ str_replace('-', ' ', @currInInterest) }}
                     </label>
@@ -60,7 +62,9 @@
 
                 <div class="col-6 col-md-3 form-check">
                     <input id="{{ @currOutInterest }}" name="outdoor-interests[]" value="{{ @currOutInterest }}"
-                           type="checkbox" class="form-check-input">
+                           type="checkbox" class="form-check-input"
+                        <check if="{{ in_array(@currOutInterest, @selectedOutdoorInterests) }}">checked</check>
+                    >
                     <label for="{{ @currOutInterest }}" class="form-check-label">
                         {{ str_replace('-', ' ', @currOutInterest) }}
                     </label>

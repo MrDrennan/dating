@@ -149,14 +149,30 @@ $f3->route('GET|POST /create-profile/interests', function($f3) {
     $f3->set('indoorInterests', $indoorInterests);
     $f3->set('outdoorInterests', $outdoorInterests);
 
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+        // Collect data
+        $selectedIndoorInterests = isset($_POST['indoor-interests']) ? $_POST['indoor-interests'] : [];
+        $selectedOutdoorInterests = isset($_POST['outdoor-interests']) ? $_POST['outdoor-interests'] : [];
 
+        // Add to hive
+        $f3->set('selectedIndoorInterests', $selectedIndoorInterests);
+        $f3->set('selectedOutdoorInterests', $selectedOutdoorInterests);
 
+        if (validInterestsForm($f3)) {
+
+            // Add to session
+            $_SESSION['indoorInterests'] = $selectedIndoorInterests;
+            $_SESSION['outdoorInterests'] = $selectedOutdoorInterests;
+
+            $f3->reroute('/create-profile/profile-summary');
+        }
+    }
     echo Template::instance()->render('views/frm-interests.html');
 });
 
 
-$f3->route('POST /create-profile/profile-summary', function() {
+$f3->route('GET /create-profile/profile-summary', function() {
 
     $interests = '';
     if (isset($_POST['indoor-interests'])) {
