@@ -41,11 +41,11 @@
                     <input id="f-name" name="f-name" type="text" class="form-control" value="{{ @fName }}">
 
                     <check if="{{ in_array('fNameRequired', @errors) }}">
-                        <span class="error">Required</span>
+                        <span class="error text-danger">Required</span>
                     </check>
 
                     <check if="{{ in_array('fNameInvalid', @errors) }}">
-                        <span class="error">Only letters are allowed</span>
+                        <span class="error text-danger">Only letters are allowed</span>
                     </check>
                 </div>
 
@@ -55,11 +55,11 @@
                     <input id="l-name" name="l-name" type="text" class="form-control" value="{{ @lName }}">
 
                     <check if="{{ in_array('lNameRequired', @errors) }}">
-                        <span class="error">Required</span>
+                        <span class="error text-danger">Required</span>
                     </check>
 
                     <check if="{{ in_array('lNameInvalid', @errors) }}">
-                        <span class="error">Only letters are allowed</span>
+                        <span class="error text-danger">Only letters are allowed</span>
                     </check>
                 </div>
 
@@ -69,11 +69,11 @@
                     <input id="age" name="age" type="text" class="form-control" value="{{ @age }}">
 
                     <check if="{{ in_array('ageRequired', @errors) }}">
-                        <span class="error">Required</span>
+                        <span class="error text-danger">Required</span>
                     </check>
 
                     <check if="{{ in_array('ageInvalid', @errors) }}">
-                        <span class="error">Must be a number between 18 and 118</span>
+                        <span class="error text-danger">Must be a number between 18 and 118</span>
                     </check>
                 </div>
 
@@ -108,11 +108,11 @@
                     <input id="phone" name="phone" type="text" class="form-control" value="{{ @phone }}">
 
                     <check if="{{ in_array('phoneRequired', @errors) }}">
-                        <span class="error">Required</span>
+                        <span class="error text-danger">Required</span>
                     </check>
 
                     <check if="{{ in_array('phoneInvalid', @errors) }}">
-                        <span class="error">Invalid phone format</span>
+                        <span class="error text-danger">Invalid phone format</span>
                     </check>
                 </div>
             </div><!-- col-sm-8 -->
