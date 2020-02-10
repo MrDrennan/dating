@@ -1,6 +1,6 @@
 <?php
 /**
- * Controller for the home page
+ * Controller for the website
  * @author Chad Drennan
  * Date Created: 1/17/2020
  */
@@ -188,7 +188,6 @@ $f3->route('GET /create-profile/profile-summary', function($f3) {
     $f3->set('seekingGender', ucfirst($_SESSION['seekingGender']));
     $f3->set('interests',  str_replace('-', ' ', $interests));
 
-    echo $interests;
     echo Template::instance()->render('views/summary.html');
 });
 
