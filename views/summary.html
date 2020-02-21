@@ -39,7 +39,10 @@
                     <li class="list-group-item">Email: {{ @SESSION.email }}</li>
                     <li class="list-group-item">State: {{ @state }}</li>
                     <li class="list-group-item">Seeking: {{ @seekingGender }}</li>
-                    <li class="list-group-item">Interests: {{ @interests }}</li>
+
+                    <check if="{{ isset(@SESSION.premMember) }}">
+                        <li class="list-group-item">Interests: {{ @interests }}</li>
+                    </check>
                 </ul>
             </div>
         </div>

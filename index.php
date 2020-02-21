@@ -105,6 +105,7 @@ $f3->route('GET|POST /create-profile/personal-info', function($f3) {
             $_SESSION['age'] = $age;
             $_SESSION['gender'] = $gender;
             $_SESSION['phone'] = $phone;
+            $_SESSION['premMember'] = $premMember;
 
             $f3->reroute('/create-profile/profile');
         }
@@ -136,7 +137,13 @@ $f3->route('GET|POST /create-profile/profile', function($f3) {
             $_SESSION['seekingGender'] = $seekingGender;
             $_SESSION['bio'] = $bio;
 
-            $f3->reroute('/create-profile/interests');
+            // if premium member go to interests form
+            if (isset($_SESSION['premMember'])) {
+                $f3->reroute('/create-profile/interests');
+            }
+            else { // go to summary
+                $f3->reroute('/create-profile/profile-summary');
+            }
         }
     }
     echo Template::instance()->render('views/frm-profile.html');
