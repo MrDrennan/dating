@@ -84,7 +84,9 @@
                     <!-- Male -->
                     <div class="form-check form-check-inline">
                         <input id="male" type="radio" name="gender" value="male" class="form-check-input"
-                            <check if="{{ @gender == 'male' }}">checked</check>
+                        <check if="{{ @gender == 'male' }}">
+                            checked
+                        </check>
                         >
                         <label for="male" class="form-check-label">Male</label>
                     </div>
@@ -92,7 +94,9 @@
                     <!-- Female -->
                     <div class="form-check form-check-inline">
                         <input id="female" type="radio" name="gender" value="female" class="form-check-input"
-                            <check if="{{ @gender == 'female' }}">checked</check>
+                        <check if="{{ @gender == 'female' }}">
+                            checked
+                        </check>
                         >
                         <label for="female" class="form-check-label">Female</label>
                     </div>
@@ -111,7 +115,22 @@
                         <span class="error text-danger">Invalid phone format</span>
                     </check>
                 </div>
-            </div><!-- col-md-8 -->
+
+                <!-- Premium Membership -->
+                <div class="form-group">
+                    <p class="mb-2 check-label">Premium Membership</p>
+
+                    <div class="form-check form-check-inline">
+                        <input id="prem-member" class="form-check-input" type="checkbox" name="prem-member"
+                               value="checked"
+                        <check if="{{ @premMember == 'checked' }}">
+                            checked
+                        </check>
+                        >
+                        <label for="prem-member" class="form-check-label">Sign me up for a Premium Account!</label>
+                    </div>
+                </div>
+            </div><!-- col-sm-8 -->
 
             <!-- Notice -->
             <div class="col-md-4">
@@ -121,7 +140,7 @@
                         Profile information can only be viewed by others with your permission.
                     </div>
                 </div>
-            </div> <!-- col-md-4 -->
+            </div> <!-- col-sm-4 -->
         </div> <!-- row -->
 
         <button class="btn btn-primary float-right" type="submit">Next ></button>

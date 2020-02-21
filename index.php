@@ -87,6 +87,7 @@ $f3->route('GET|POST /create-profile/personal-info', function($f3) {
         $age = trim($_POST['age']);
         $gender = $_POST['gender'];
         $phone = trim($_POST['phone']);
+        $premMember = $_POST['prem-member'];
 
         // Add to hive
         $f3->set('fName', $fName);
@@ -94,6 +95,7 @@ $f3->route('GET|POST /create-profile/personal-info', function($f3) {
         $f3->set('age', $age);
         $f3->set('gender', $gender);
         $f3->set('phone', $phone);
+        $f3->set('premMember', $premMember);
 
         if (validPersonalInfoForm($f3)) {
 
