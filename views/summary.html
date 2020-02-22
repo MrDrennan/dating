@@ -32,13 +32,13 @@
         <div class="col-md-6">
             <div class="card">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Name: {{ @SESSION.fName }} {{ @SESSION.lName }}</li>
-                    <li class="list-group-item">Gender: {{ @gender }}</li>
-                    <li class="list-group-item">Age: {{ @SESSION.age }}</li>
-                    <li class="list-group-item">Phone: {{ @SESSION.phone }}</li>
-                    <li class="list-group-item">Email: {{ @SESSION.email }}</li>
+                    <li class="list-group-item">Name: {{ @member->getFName() }} {{ @member->getLName() }}</li>
+                    <li class="list-group-item">Gender: {{ ucfirst(@member->getGender()) }}</li>
+                    <li class="list-group-item">Age: {{ @member->getAge() }}</li>
+                    <li class="list-group-item">Phone: {{ @member->getPhone() }}</li>
+                    <li class="list-group-item">Email: {{ @member->getEmail() }}</li>
                     <li class="list-group-item">State: {{ @state }}</li>
-                    <li class="list-group-item">Seeking: {{ @seekingGender }}</li>
+                    <li class="list-group-item">Seeking: {{ ucfirst(@member->getSeeking()) }}</li>
 
                     <check if="{{ isset(@SESSION.premMember) }}">
                         <li class="list-group-item">Interests: {{ @interests }}</li>
@@ -47,11 +47,12 @@
             </div>
         </div>
         <div class="col-md-6">
-            <img class="rounded w-100 mt-4 mt-md-0" src="/328/dating/images/empty-avatar.png" alt="default empty profile pic">
+            <img class="rounded w-100 mt-4 mt-md-0" src="/328/dating/images/empty-avatar.png"
+                 alt="default empty profile pic">
 
             <h2 class="mt-2 font-weight-normal h4">Biography</h2>
             <p class="text-center">
-                {{ @SESSION.bio }}
+                {{ @member->getBio() }}
             </p>
         </div>
     </div>

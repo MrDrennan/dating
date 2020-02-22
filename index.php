@@ -99,13 +99,17 @@ $f3->route('GET|POST /create-profile/personal-info', function($f3) {
 
         if (validPersonalInfoForm($f3)) {
 
+            // Set premium or regular member objects
+            if (isset($premMember)) {
+                $member = new PremiumMember($fName, $lName, $age, $gender, $phone);
+            }
+            else {
+                $member = new Member($fName, $lName, $age, $gender, $phone);
+            }
+
             // Add to session
-            $_SESSION['fName'] = $fName;
-            $_SESSION['lName'] = $lName;
-            $_SESSION['age'] = $age;
-            $_SESSION['gender'] = $gender;
-            $_SESSION['phone'] = $phone;
-            $_SESSION['premMember'] = $premMember;
+            $_SESSION['member'] = $member;
+            $_SESSION['isPremMember'] = $premMember;
 
             $f3->reroute('/create-profile/profile');
         }
@@ -131,14 +135,18 @@ $f3->route('GET|POST /create-profile/profile', function($f3) {
 
         if (validProfileForm($f3)) {
 
-            // Add to session
-            $_SESSION['email'] = $email;
-            $_SESSION['state'] = $state;
-            $_SESSION['seekingGender'] = $seekingGender;
-            $_SESSION['bio'] = $bio;
+            // Set member profile info to session
+            $member = $_SESSION['member'];
 
-            // if premium member go to interests form
-            if (isset($_SESSION['premMember'])) {
+            $member->setEmail($email);
+            $member->setState($state);
+            $member->setSeeking($seekingGender);
+            $member->setBio($bio);
+
+            $_SESSION['member'] = $member;
+
+            // If premium member go to interests form
+            if (isset($_SESSION['isPremMember'])) {
                 $f3->reroute('/create-profile/interests');
             }
             else { // go to summary
@@ -169,9 +177,13 @@ $f3->route('GET|POST /create-profile/interests', function($f3) {
 
         if (validInterestsForm($f3)) {
 
-            // Add to session
-            $_SESSION['indoorInterests'] = $selectedIndoorInterests;
-            $_SESSION['outdoorInterests'] = $selectedOutdoorInterests;
+            $member = $_SESSION['member'];
+
+            // Set member interests
+            $member->setIndoorInterests($selectedIndoorInterests);
+            $member->setOutdoorInterests($selectedOutdoorInterests);
+
+            $_SESSION['member'] = $member;
 
             $f3->reroute('/create-profile/profile-summary');
         }
@@ -182,20 +194,27 @@ $f3->route('GET|POST /create-profile/interests', function($f3) {
 
 $f3->route('GET /create-profile/profile-summary', function($f3) {
 
-    $interests = '';
-    if (isset($_SESSION['indoorInterests'])) {
-        $interests = implode(' ', $_SESSION['indoorInterests']) . ' ';
-    }
-    if (isset($_SESSION['outdoorInterests'])) {
-        $interests .= implode(' ', $_SESSION['outdoorInterests']);
+    $member = $_SESSION['member'];
+
+    // Format interests if premium member
+    if (isset($_SESSION['isPremMember'])) {
+        $interests = '';
+        if (!empty($member->getIndoorInterests())) {
+            $interests = implode(' ', $member->getIndoorInterests()) . ' ';
+        }
+        if (!empty($member->getOutdoorInterests())) {
+            $interests .= implode(' ', $member->getOutdoorInterests());
+        }
+
+        $f3->set('interests',  str_replace('-', ' ', $interests));
     }
 
-    $state = $f3->get('states')[$_SESSION['state']];
-
-    $f3->set('gender', ucfirst($_SESSION['gender']));
+    // Get state name from abbr to state name map
+    $state = $f3->get('states')[$member->getState()];
     $f3->set('state', $state);
-    $f3->set('seekingGender', ucfirst($_SESSION['seekingGender']));
-    $f3->set('interests',  str_replace('-', ' ', $interests));
+
+    $f3->set('seekingGender', ucfirst($member->getSeeking()));
+    $f3->set('member', $member);
 
     echo Template::instance()->render('views/summary.html');
 });
