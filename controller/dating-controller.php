@@ -1,10 +1,32 @@
-<?php
+<?
+/**
+ * dating-controller.php processes data and shows views for routes
+ * @author Chad Drennan
+ * Date created: 2/21/20
+ */
 
+
+/**
+ * Class DatingController processes data and shows views for routes
+ * @author Chad Drennan
+ * Date created: 2/2120
+ */
 class DatingController
 {
+
+    /**
+     * @var object Base instance for Fat-Free Framework
+     */
     private $_f3;
+    /**
+     * @var array state name to abbreviation map
+     */
     private $_states;
 
+    /**
+     * DatingController constructor.
+     * @param $f3 object Base instance for Fat-Free Framework
+     */
     public function __construct($f3)
     {
         $this->_states = [
@@ -65,11 +87,17 @@ class DatingController
         $this->_f3 = $f3;
     }
 
+    /**
+     * Shows home page
+     */
     public function home()
     {
         echo (new Template())->render('views/home.html');
     }
 
+    /**
+     * Shows form and processes data from personal information sign up form
+     */
     public function personalInfoForm()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -110,6 +138,9 @@ class DatingController
         echo (new Template())->render('views/frm-personal-info.html');
     }
 
+    /**
+     * Shows form and processes data from profile information sign up form
+     */
     public function profileForm()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -153,6 +184,9 @@ class DatingController
         echo (new Template())->render('views/frm-profile.html');
     }
 
+    /**
+     * Shows form and processes data from interests sign up form
+     */
     public function interestsForm()
     {
         $indoorInterests = ['tv', 'movies', 'cooking', 'board-games', 'puzzles', 'reading', 'playing-cards', 'video-games'];
@@ -187,6 +221,9 @@ class DatingController
         echo (new Template())->render('views/frm-interests.html');
     }
 
+    /**
+     * Shows summary of user's data after signing up
+     */
     public function summary()
     {
         $member = $_SESSION['member'];

@@ -1,12 +1,16 @@
 <?php
 
 /**
- * Validates submitted data from forms
+ * validation.php validates submitted data from forms
  * @author Chad Drennan
  * Date Created: 2/7/2020
  */
 
-
+/**
+ * Class Validation validates submitted data from forms
+ * @author Chad Drennan
+ * Date Created 2/22/20
+ */
 class Validation
 {
     // Note: must be using PHP 7.1+ for private class constants
