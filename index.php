@@ -9,14 +9,10 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 require("vendor/autoload.php");
-require("model/validation.php");
 
 session_start();
 
 $f3 = Base::instance();
-
-
-
 $controller = new DatingController($f3);
 
 $f3->route('GET /', function() {

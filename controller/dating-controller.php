@@ -3,7 +3,6 @@
 class DatingController
 {
     private $_f3;
-    private $_validator;
     private $_states;
 
     public function __construct($f3)
@@ -63,13 +62,12 @@ class DatingController
         ];
 
         $f3->set('errors', []);
-
         $this->_f3 = $f3;
     }
 
     public function home()
     {
-        echo Template::instance()->render('views/home.html');
+        echo (new Template())->render('views/home.html');
     }
 
     public function personalInfoForm()
@@ -92,7 +90,7 @@ class DatingController
             $this->_f3->set('phone', $phone);
             $this->_f3->set('premMember', $premMember);
 
-            if (validPersonalInfoForm($this->_f3)) {
+            if ((new Validation($this->_f3))->validPersonalInfoForm()) {
 
                 // Set premium or regular member objects
                 if (isset($premMember)) {
@@ -109,7 +107,7 @@ class DatingController
                 $this->_f3->reroute('/create-profile/profile');
             }
         }
-        echo Template::instance()->render('views/frm-personal-info.html');
+        echo (new Template())->render('views/frm-personal-info.html');
     }
 
     public function profileForm()
@@ -128,7 +126,7 @@ class DatingController
             $this->_f3->set('seekingGender', $seekingGender);
             $this->_f3->set('bio', $bio);
 
-            if (validProfileForm($this->_f3)) {
+            if ((new Validation($this->_f3))->validProfileForm()) {
 
                 // Set member profile info to session
                 $member = $_SESSION['member'];
@@ -152,7 +150,7 @@ class DatingController
         // Add states to hive for template
         $this->_f3->set('states', $this->_states);
 
-        echo Template::instance()->render('views/frm-profile.html');
+        echo (new Template())->render('views/frm-profile.html');
     }
 
     public function interestsForm()
@@ -173,7 +171,7 @@ class DatingController
             $this->_f3->set('selectedIndoorInterests', $selectedIndoorInterests);
             $this->_f3->set('selectedOutdoorInterests', $selectedOutdoorInterests);
 
-            if (validInterestsForm($this->_f3)) {
+            if ((new Validation($this->_f3))->validInterestsForm()) {
 
                 $member = $_SESSION['member'];
 
@@ -186,7 +184,7 @@ class DatingController
                 $this->_f3->reroute('/create-profile/profile-summary');
             }
         }
-        echo Template::instance()->render('views/frm-interests.html');
+        echo (new Template())->render('views/frm-interests.html');
     }
 
     public function summary()
@@ -213,7 +211,9 @@ class DatingController
         $this->_f3->set('seekingGender', ucfirst($member->getSeeking()));
         $this->_f3->set('member', $member);
 
-        echo Template::instance()->render('views/summary.html');
+        echo (new Template())->render('views/summary.html');
+
+        // Destroy session after profile is created
         session_destroy();
         $_SESSION = [];
     }
