@@ -18,10 +18,12 @@ class DatingController
      * @var object Base instance for Fat-Free Framework
      */
     private $_f3;
+
     /**
      * @var array state name to abbreviation map
      */
     private $_states;
+
 
     /**
      * DatingController constructor.
@@ -87,6 +89,7 @@ class DatingController
         $this->_f3 = $f3;
     }
 
+
     /**
      * Shows home page
      */
@@ -94,6 +97,7 @@ class DatingController
     {
         echo (new Template())->render('views/home.html');
     }
+
 
     /**
      * Shows form and processes data from personal information sign up form
@@ -138,6 +142,7 @@ class DatingController
         echo (new Template())->render('views/frm-personal-info.html');
     }
 
+
     /**
      * Shows form and processes data from profile information sign up form
      */
@@ -157,7 +162,12 @@ class DatingController
             $this->_f3->set('seekingGender', $seekingGender);
             $this->_f3->set('bio', $bio);
 
-            if ((new Validation($this->_f3))->validProfileForm()) {
+            // User is uploading photo
+            if (isset($_POST['photo-submit'])) {
+                $this->uploadPhoto();
+            }
+            // User is submitting form
+            else if ((new Validation($this->_f3))->validProfileForm()) {
 
                 // Set member profile info to session
                 $member = $_SESSION['member'];
@@ -182,6 +192,26 @@ class DatingController
         $this->_f3->set('states', $this->_states);
 
         echo (new Template())->render('views/frm-profile.html');
+    }
+
+
+    /**
+     * Uploads photo chosen by user if valid
+     */
+    private function uploadPhoto()
+    {
+        $imageIn = $_FILES['photo'];
+        $picPath = 'images/uploads/' . basename($imageIn["name"]);
+
+        // Upload validated photo
+        if ((new Validation($this->_f3))->validPhoto($imageIn, $picPath)) {
+            if (move_uploaded_file($imageIn["tmp_name"], $picPath)) {
+                $this->_f3->set('photoConfirm', 'The file ' . basename($imageIn['name']) . ' has been uploaded.');
+                $_SESSION['picPath'] = $picPath;
+            } else {
+                $this->_f3->set('photoError', 'There was an error uploading your file.');
+            }
+        }
     }
 
     /**
@@ -220,6 +250,7 @@ class DatingController
         }
         echo (new Template())->render('views/frm-interests.html');
     }
+
 
     /**
      * Shows summary of user's data after signing up

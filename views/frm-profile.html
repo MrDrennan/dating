@@ -32,6 +32,40 @@
     <h1>Profile</h1>
     <hr>
 
+    <div class="row">
+        <div class="col-md-6">
+
+            <form action="#" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="photo">Upload an image:</label>
+                    <br>
+                    <input type="file" name="photo" id="photo">
+                    <br>
+                    <input class="btn btn-primary mt-2" type="submit" value="Upload" name="photo-submit">
+
+                    <check if="{{ isset(@photoError) }}">
+                        <br>
+                        <span class="error text-danger">{{ @photoError }}</span>
+                    </check>
+
+                    <check if="{{ isset(@photoConfirm) }}">
+                        <br>
+                        <span class="text-success">{{ @photoConfirm }}</span>
+                    </check>
+                </div>
+            </form>
+
+        </div><!-- col-md-6 -->
+        <div class="col-md-6">
+            <img class="rounded w-100 mt-4 mt-md-0 mb-2"
+                 <check if="{{ isset(@SESSION.picPath) }}">
+                     <true>src="/328/dating/{{ @SESSION.picPath }}"</true>
+                     <false>src="/328/dating/images/empty-avatar.png"</false>
+                 </check>
+                 alt="profile pic">
+        </div><!-- col-md-6 -->
+    </div><!-- row -->
+
     <form action="#" method="post">
         <div class="row">
             <div class="col-md-6">
@@ -75,7 +109,7 @@
                         <input type="radio" name="seeking-gender" id="male" value="male" class="form-check-input"
                             <check if="{{ @seekingGender == 'male' }}">checked</check>
                         >
-                        <label for="male">Male</label>
+                        <label for="male" class="form-check-label">Male</label>
                     </div>
 
                     <!-- Female -->
@@ -98,7 +132,7 @@
                 </div>
 
             </div> <!-- col-md-6 -->
-        </div>
+        </div><!-- row -->
 
         <button class="btn btn-primary float-right" type="submit">Next ></button>
     </form>
