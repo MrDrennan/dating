@@ -13,6 +13,9 @@ require("vendor/autoload.php");
 session_start();
 
 $f3 = Base::instance();
+$f3->set('DEBUG', 3);
+
+$db = new Database();
 $controller = new DatingController($f3);
 
 $f3->route('GET /', function() {

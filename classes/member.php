@@ -59,6 +59,12 @@ class Member
     private $_bio;
 
     /**
+     * @var string location of user's image
+     */
+    private $_picPath;
+
+
+    /**
      * Member constructor.
      * @param $fName string  member's first name
      * @param $lName string member's last name
@@ -234,5 +240,23 @@ class Member
     public function setBio($bio)
     {
         $this->_bio = $bio;
+    }
+
+    /**
+     * Gets location of member's photo
+     * @return string location of member's photo
+     */
+    public function getPicPath()
+    {
+        return $this->_picPath;
+    }
+
+    /**
+     * Sets location of member's photo
+     * @param string $picPath location of member's photo
+     */
+    public function setPicPath($picPath)
+    {
+        $this->_picPath = $picPath;
     }
 }
