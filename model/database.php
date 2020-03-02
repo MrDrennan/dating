@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * database.php performs database operations for tables associated with members
+ * @author Chad Drennan
+ * Date Created: 2/28/2020
+ */
+
 /* Create Table statements
 
     CREATE TABLE `member` (
@@ -39,15 +45,32 @@
 
 require_once('/home/cdrennan/config-grc.php');
 
+
+/**
+ * Class Database. Performs database operations for tables associated with members
+ * @author Chad Drennan
+ * Date Created: 2/28/2020
+ */
 class Database
 {
+    /**
+     * @var Db connection object
+     */
     private $_dbh;
 
+
+    /**
+     * Database constructor.
+     */
     function __construct()
     {
         $this->connect();
     }
 
+
+    /**
+     * Connects to the database
+     */
     public function connect()
     {
         try {
@@ -58,6 +81,11 @@ class Database
         }
     }
 
+
+    /**
+     * Inserts a member into the member table. Inserts member's interests to linking table
+     * @param $member object represents member and contains member data
+     */
     function insertMember($member)
     {
         $sql = "INSERT INTO member (fname, lname, age, gender, phone, email, state, seeking, bio, premium, image)
@@ -96,6 +124,12 @@ class Database
         }
     }
 
+
+    /**
+     * Inserts link to interest table from member table in the member-interest table
+     * @param $memberId number id of member
+     * @param $interestId id of interest
+     */
     function insertMemberInterest($memberId, $interestId)
     {
 
@@ -109,6 +143,12 @@ class Database
         $statement->execute();
     }
 
+
+    /**
+     * Gets interest id with the interest name
+     * @param $interest string name of interest
+     * @return mixed id of interest
+     */
     function getInterestId($interest)
     {
         $sql = "SELECT interest_id
@@ -122,6 +162,11 @@ class Database
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
+
+    /**
+     * Retrieves all members and their data from the member table
+     * @return array all members and their data from the member table
+     */
     function getMembers()
     {
         $sql = "SELECT * 
@@ -134,7 +179,11 @@ class Database
     }
 
 
-
+    /**
+     * Returns all member data from member table with passed in member id
+     * @param $memberId number iD of member to get data from
+     * @return mixed member data
+     */
     function getMember($memberId)
     {
         $sql = "SELECT * 
