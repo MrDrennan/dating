@@ -189,7 +189,7 @@ class DatingController
                 }
                 else { // go to
                     $GLOBALS['db']->insertMember($member);
-                    //$this->_f3->reroute('/create-profile/profile-summary');
+                    $this->_f3->reroute('/create-profile/profile-summary');
                 }
             }
         }
@@ -294,8 +294,36 @@ class DatingController
         $_SESSION = [];
     }
 
+
+    /**
+     * Shows all a table of all the members
+     */
     function admin()
     {
+        $members = $GLOBALS['db']->getMembers();
+        $membersInterests = [];
 
+        // Add formatted string of interests to membersInterests map if premium member
+        foreach ($members as $currMember) {
+
+            if ($currMember['premium'] == 1) {
+                $dbInterestsResult = $GLOBALS['db']->getInterests($currMember['member_id']);
+
+                if ($dbInterestsResult) {
+                    $interests = '';
+
+                    foreach ($dbInterestsResult as $currInterest) {
+                        $interests .= $currInterest['interest'] . ', ';
+                    }
+                    $interests = str_replace('-', ' ', $interests);
+                    $membersInterests[$currMember['member_id']] = rtrim($interests, ', ');
+                }
+            }
+        }
+
+        $this->_f3->set('members', $members);
+        $this->_f3->set('membersInterests', $membersInterests);
+
+        echo (new Template())->render('views/admin.html');
     }
 }

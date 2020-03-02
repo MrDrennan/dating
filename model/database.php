@@ -94,11 +94,6 @@ class Database
                 $this->insertMemberInterest($memberId, $interestId);
             }
         }
-
-        var_dump($member);
-        var_dump($this->_dbh->errorInfo());
-        echo $memberId;
-        echo $isPremium;
     }
 
     function insertMemberInterest($memberId, $interestId)
@@ -138,6 +133,8 @@ class Database
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+
     function getMember($memberId)
     {
         $sql = "SELECT * 
@@ -151,18 +148,24 @@ class Database
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
+
+    /**
+     * Retrieves a member's interests
+     * @param $memberId number Id of member to get interests
+     * @return array interests query result
+     */
     function getInterests($memberId)
     {
-        $sql = "SELECT * 
+        $sql = "SELECT interest.interest 
                 FROM member 
-                INNER JOIN member-interest ON member.member_id = member-interest.member_id
-                INNER JOIN interest ON member-interest.interest_id = interest.interest_id
+                INNER JOIN `member-interest` ON member.member_id = `member-interest`.member_id
+                INNER JOIN interest ON `member-interest`.interest_id = interest.interest_id
                 WHERE member.member_id = :memberId";
 
         $statement = $this->_dbh->prepare($sql);
         $statement->bindParam(':memberId', $memberId);
 
         $statement->execute();
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 }

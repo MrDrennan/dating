@@ -1,0 +1,82 @@
+<!-- Form for new user to fill in their interests-->
+<!--Author: Chad Drennan-->
+<!--File: frm-interests.html -->
+<!--Date Created: 1/25/2020-->
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="/328/dating/styles/site.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/328/dating/images/dating-icon.png">
+
+    <title>My Dating Website</title>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light navbar-expand-lg">
+    <a class="navbar-brand" href="/328/dating">My Dating Website</a>
+    <a class="navbar-brand" href="#">Admin</a>
+</nav>
+
+<main class="container border rounded clearfix">
+    <h1>Members</h1>
+    <hr>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>State</th>
+                <th>Gender</th>
+                <th>Seeking</th>
+                <th>Premium</th>
+                <th>Interests</th>
+            </tr>
+        </thead>
+        <tbody>
+        <repeat group="{{  @members }}" value="{{ @currMember }}">
+            <tr>
+                <td>{{ @currMember['member_id'] }}</td>
+                <td>{{ @currMember['fname'] }} {{ @currMember['lname'] }}</td>
+                <td>{{ @currMember['age'] }}</td>
+                <td>{{ @currMember['phone'] }}</td>
+                <td>{{ @currMember['email'] }}</td>
+                <td>{{ @currMember['state'] }}</td>
+                <td>{{ @currMember['gender'] }}</td>
+                <td>{{ @currMember['seeking'] }}</td>
+                <td>
+                    <input class="form-check-input" type="checkbox"
+                    <check if="{{ @currMember['premium'] == 1 }}">
+                        checked
+                    </check>
+                    >
+                </td>
+                <td>{{ @membersInterests[@currMember['member_id']] }}</td>
+            </tr>
+        </repeat>
+
+        </tbody>
+    </table>
+
+</main>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
