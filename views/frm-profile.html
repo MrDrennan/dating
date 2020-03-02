@@ -25,6 +25,7 @@
 
 <nav class="navbar navbar-light bg-light navbar-expand-lg">
     <a class="navbar-brand" href="/328/dating">My Dating Website</a>
+    <a class="navbar-brand" href="/328/dating/admin">Admin</a>
 </nav>
 
 <main class="container border rounded clearfix">
@@ -58,8 +59,8 @@
         </div><!-- col-md-6 -->
         <div class="col-md-6">
             <img class="rounded w-100 mt-4 mt-md-0 mb-2"
-                 <check if="{{ isset(@SESSION.picPath) }}">
-                     <true>src="/328/dating/{{ @SESSION.picPath }}"</true>
+                 <check if="{{ @SESSION.member->getPicPath() != null }}">
+                     <true>src="/328/dating/{{ @SESSION.member->getPicPath() }}"</true>
                      <false>src="/328/dating/images/empty-avatar.png"</false>
                  </check>
                  alt="profile pic">

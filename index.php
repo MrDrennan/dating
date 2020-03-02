@@ -38,4 +38,8 @@ $f3->route('GET /create-profile/profile-summary', function() {
     $GLOBALS['controller']->summary();
 });
 
+$f3->route('GET /admin', function() {
+   $GLOBALS['controller']->admin();
+});
+
 $f3->run();

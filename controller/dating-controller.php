@@ -29,7 +29,7 @@ class DatingController
      * DatingController constructor.
      * @param $f3 object Base instance for Fat-Free Framework
      */
-    public function __construct($f3)
+    function __construct($f3)
     {
         $this->_states = [
             'AL' => 'Alabama',
@@ -93,7 +93,7 @@ class DatingController
     /**
      * Shows home page
      */
-    public function home()
+    function home()
     {
         echo (new Template())->render('views/home.html');
     }
@@ -102,7 +102,7 @@ class DatingController
     /**
      * Shows form and processes data from personal information sign up form
      */
-    public function personalInfoForm()
+    function personalInfoForm()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -146,7 +146,7 @@ class DatingController
     /**
      * Shows form and processes data from profile information sign up form
      */
-    public function profileForm()
+    function profileForm()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -164,7 +164,11 @@ class DatingController
 
             // User is uploading photo
             if (isset($_POST['photo-submit'])) {
-                $this->uploadPhoto();
+                $member = $_SESSION['member'];
+                $picPath = $this->uploadPhoto();
+
+                $member->setPicPath($picPath);
+                $_SESSION['member'] = $member;
             }
             // User is submitting form
             else if ((new Validation($this->_f3))->validProfileForm()) {
@@ -183,8 +187,9 @@ class DatingController
                 if (isset($_SESSION['isPremMember'])) {
                     $this->_f3->reroute('/create-profile/interests');
                 }
-                else { // go to summary
-                    $this->_f3->reroute('/create-profile/profile-summary');
+                else { // go to
+                    $GLOBALS['db']->insertMember($member);
+                    //$this->_f3->reroute('/create-profile/profile-summary');
                 }
             }
         }
@@ -197,6 +202,7 @@ class DatingController
 
     /**
      * Uploads photo chosen by user if valid
+     * @returns string path of photo. null if not uploaded successfully
      */
     private function uploadPhoto()
     {
@@ -207,17 +213,17 @@ class DatingController
         if ((new Validation($this->_f3))->validPhoto($imageIn, $picPath)) {
             if (move_uploaded_file($imageIn["tmp_name"], $picPath)) {
                 $this->_f3->set('photoConfirm', 'The file ' . basename($imageIn['name']) . ' has been uploaded.');
-                $_SESSION['picPath'] = $picPath;
-            } else {
-                $this->_f3->set('photoError', 'There was an error uploading your file.');
+                return $picPath;
             }
+            $this->_f3->set('photoError', 'There was an error uploading your file.');
         }
+        return null;
     }
 
     /**
      * Shows form and processes data from interests sign up form
      */
-    public function interestsForm()
+    function interestsForm()
     {
         $indoorInterests = ['tv', 'movies', 'cooking', 'board-games', 'puzzles', 'reading', 'playing-cards', 'video-games'];
         $outdoorInterests = ['hiking', 'biking', 'swimming', 'collecting', 'walking', 'climbing'];
@@ -243,6 +249,8 @@ class DatingController
                 $member->setIndoorInterests($selectedIndoorInterests);
                 $member->setOutdoorInterests($selectedOutdoorInterests);
 
+                $GLOBALS['db']->insertMember($member);
+
                 $_SESSION['member'] = $member;
 
                 $this->_f3->reroute('/create-profile/profile-summary');
@@ -255,7 +263,7 @@ class DatingController
     /**
      * Shows summary of user's data after signing up
      */
-    public function summary()
+    function summary()
     {
         $member = $_SESSION['member'];
 
@@ -284,5 +292,10 @@ class DatingController
         // Destroy session after profile is created
         session_destroy();
         $_SESSION = [];
+    }
+
+    function admin()
+    {
+
     }
 }

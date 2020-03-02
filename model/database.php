@@ -1,5 +1,43 @@
 <?php
 
+/* Create Table statements
+
+    CREATE TABLE `member` (
+     `member_id` int(11) NOT NULL AUTO_INCREMENT,
+     `fname` varchar(30) NOT NULL,
+     `lname` varchar(30) NOT NULL,
+     `age` tinyint(4) NOT NULL,
+     `gender` char(1) DEFAULT NULL,
+     `phone` varchar(30) NOT NULL,
+     `email` varchar(80) NOT NULL,
+     `state` char(2) DEFAULT NULL,
+     `seeking` char(1) DEFAULT NULL,
+     `bio` varchar(255) DEFAULT NULL,
+     `premium` tinyint(1) NOT NULL,
+     `image` varchar(255) NOT NULL,
+     PRIMARY KEY (`member_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+    CREATE TABLE `interest` (
+     `interest_id` int(11) NOT NULL AUTO_INCREMENT,
+     `interest` varchar(50) NOT NULL,
+     `type` varchar(50) NOT NULL,
+     PRIMARY KEY (`interest_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+
+    CREATE TABLE `member-interest` (
+     `member_id` int(11) NOT NULL,
+     `interest_id` int(11) NOT NULL,
+     PRIMARY KEY (`member_id`,`interest_id`),
+     KEY `member_id` (`member_id`),
+     KEY `interest_id` (`interest_id`),
+     CONSTRAINT `member-interest_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`),
+     CONSTRAINT `member-interest_ibfk_2` FOREIGN KEY (`interest_id`) REFERENCES `interest` (`interest_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+
+ */
+
+require_once('/home/cdrennan/config-grc.php');
 
 class Database
 {
@@ -42,7 +80,51 @@ class Database
         $statement->bindParam(':image', $member->getPicPath());
 
         $statement->execute();
-        return $this->_dbh->lastInsertId();
+
+        $memberId = $this->_dbh->lastInsertId();
+
+        if ($isPremium) {
+            foreach ($member->getIndoorInterests() as $currInterest) {
+                $interestId = $this->getInterestId($currInterest)['interest_id'];
+                $this->insertMemberInterest($memberId, $interestId);
+            }
+
+            foreach ($member->getOutdoorInterests() as $currInterest) {
+                $interestId = $this->getInterestId($currInterest)['interest_id'];
+                $this->insertMemberInterest($memberId, $interestId);
+            }
+        }
+
+        var_dump($member);
+        var_dump($this->_dbh->errorInfo());
+        echo $memberId;
+        echo $isPremium;
+    }
+
+    function insertMemberInterest($memberId, $interestId)
+    {
+
+        $sql = "INSERT INTO `member-interest` (member_id, interest_id)
+                VALUES (:memberId, :interestId)";
+
+        $statement = $this->_dbh->prepare($sql);
+        $statement->bindParam(':memberId', $memberId);
+        $statement->bindParam(':interestId', $interestId);
+
+        $statement->execute();
+    }
+
+    function getInterestId($interest)
+    {
+        $sql = "SELECT interest_id
+                FROM interest
+                WHERE interest = :interest";
+
+        $statement = $this->_dbh->prepare($sql);
+        $statement->bindParam(':interest', $interest);
+
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     function getMembers()
@@ -69,12 +151,13 @@ class Database
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    function getInterests($memberId) {
+    function getInterests($memberId)
+    {
         $sql = "SELECT * 
                 FROM member 
                 INNER JOIN member-interest ON member.member_id = member-interest.member_id
                 INNER JOIN interest ON member-interest.interest_id = interest.interest_id
-                WHERE member_id = :memberId";
+                WHERE member.member_id = :memberId";
 
         $statement = $this->_dbh->prepare($sql);
         $statement->bindParam(':memberId', $memberId);
